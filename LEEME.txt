@@ -1,0 +1,18 @@
+NORIA LABS — estructura para GitHub Pages
+
+Sube EL CONTENIDO de esta carpeta al repositorio norialabs-site.
+
+Estructura:
+index.html                  -> portada temporal de NORIA LABS
+assets/                     -> logo de NORIA LABS
+presupuesto-pro/index.html  -> página de ventas
+presupuesto-pro/assets/     -> imágenes de la página de ventas
+presupuesto-pro/styles.css
+presupuesto-pro/app.js
+.nojekyll
+
+Después de activar GitHub Pages:
+- Sitio principal: / 
+- Página de ventas: /presupuesto-pro/
+
+Más adelante la portada temporal puede reemplazarse por la web corporativa completa sin tocar la página de ventas.
