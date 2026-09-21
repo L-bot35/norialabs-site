@@ -1,31 +1,534 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NORIA LABS</title>
-  <meta name="description" content="NORIA LABS — productos digitales y herramientas prácticas para trabajar con más claridad.">
-  <style>
-    :root{--bg:#f5f2ec;--ink:#102027;--teal:#0f4656;--orange:#eb6b25;--muted:#66767c}
-    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
-    main{min-height:100vh;display:grid;place-items:center;padding:32px}
-    .card{width:min(820px,100%);text-align:center}
-    .logo{width:min(420px,80%);margin:0 auto 36px}
-    h1{font-size:clamp(36px,7vw,70px);line-height:1.02;margin:0 0 18px;color:var(--teal)}
-    p{font-size:18px;line-height:1.65;color:var(--muted);max-width:650px;margin:0 auto 28px}
-    a{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;border-radius:14px;background:var(--orange);color:#fff;text-decoration:none;font-weight:700}
-    small{display:block;margin-top:26px;color:var(--muted)}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NORIA LABS — Soluciones digitales</title>
+<meta name="description" content="NORIA LABS desarrolla herramientas digitales para simplificar procesos, organizar información y mejorar la toma de decisiones.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --teal:#0f4656;
+  --teal-dark:#082f3a;
+  --teal-soft:#dce7e8;
+  --ivory:#f5f2ec;
+  --paper:#fffdf9;
+  --ink:#102027;
+  --muted:#66767c;
+  --line:#d8dedf;
+  --white:#ffffff;
+  --shadow:0 20px 60px rgba(5,38,46,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--ivory);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.container{width:min(1180px,calc(100% - 40px));margin:auto}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(245,242,236,.94);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(15,70,86,.09);
+}
+.nav{
+  height:78px;
+  display:flex;
+  align-items:center;
+  gap:30px;
+}
+.logo img{
+  width:214px;
+  height:auto;
+}
+.nav-links{
+  margin-left:auto;
+  display:flex;
+  gap:26px;
+  font-size:14px;
+  font-weight:600;
+  color:#41545a;
+}
+.nav-links a{position:relative;padding:6px 0}
+.nav-links a:after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0;
+  height:1px;
+  background:var(--teal);
+  transition:.2s ease;
+}
+.nav-links a:hover:after{width:100%}
+
+.hero{
+  background:linear-gradient(135deg,var(--teal-dark),var(--teal));
+  color:white;
+  padding:98px 0 92px;
+}
+.hero-copy{
+  max-width:860px;
+}
+.hero h1{
+  margin:0;
+  max-width:860px;
+  font-family:Manrope,sans-serif;
+  font-size:clamp(44px,5.2vw,72px);
+  line-height:1.04;
+  letter-spacing:-.037em;
+}
+.hero p{
+  max-width:720px;
+  margin:24px 0 0;
+  font-size:18px;
+  line-height:1.72;
+  color:rgba(255,255,255,.80);
+}
+.hero-link{
+  display:inline-flex;
+  align-items:center;
+  gap:11px;
+  margin-top:30px;
+  padding-bottom:5px;
+  border-bottom:1px solid rgba(255,255,255,.52);
+  font-size:14px;
+  font-weight:800;
+}
+.hero-link span{transition:.2s}
+.hero-link:hover span{transform:translateX(4px)}
+
+.section{padding:92px 0}
+.section.alt{background:var(--paper)}
+.section-head{
+  display:block;
+  margin-bottom:42px;
+}
+.section h2{
+  margin:0;
+  max-width:840px;
+  font-family:Manrope,sans-serif;
+  font-size:clamp(34px,4vw,50px);
+  line-height:1.08;
+  letter-spacing:-.032em;
+}
+.section-intro{
+  margin:18px 0 0;
+  max-width:760px;
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.78;
+}
+
+.principles{
+  border-top:1px solid var(--line);
+}
+.principle{
+  display:grid;
+  grid-template-columns:1fr 1.7fr;
+  gap:50px;
+  align-items:start;
+  padding:24px 0;
+  border-bottom:1px solid var(--line);
+}
+.principle h3{
+  margin:0;
+  color:var(--teal);
+  font-size:20px;
+}
+.principle p{
+  margin:0;
+  max-width:690px;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.72;
+}
+
+.product-layout{
+  display:grid;
+  grid-template-columns:.72fr 1.28fr;
+  gap:52px;
+  align-items:center;
+}
+.product-copy h3{
+  margin:0 0 16px;
+  font-family:Manrope,sans-serif;
+  font-size:31px;
+  line-height:1.14;
+  letter-spacing:-.025em;
+}
+.product-copy p{
+  margin:0 0 24px;
+  color:var(--muted);
+  line-height:1.78;
+  font-size:16px;
+}
+.product-link{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:var(--teal);
+  font-size:14px;
+  font-weight:800;
+  border-bottom:1px solid rgba(15,70,86,.45);
+  padding-bottom:5px;
+}
+.product-visual{
+  position:relative;
+  border-radius:28px;
+  padding:35px 35px 0;
+  overflow:hidden;
+  background:linear-gradient(145deg,#e9e5de,#d9e0df);
+  box-shadow:var(--shadow);
+}
+.product-visual:before{
+  content:"";
+  position:absolute;
+  width:210px;
+  height:210px;
+  border-radius:50%;
+  border:1px solid rgba(15,70,86,.10);
+  right:-78px;
+  top:-86px;
+}
+.screen{
+  position:relative;
+  z-index:1;
+  border-radius:18px 18px 0 0;
+  overflow:hidden;
+  border:1px solid rgba(15,70,86,.09);
+  background:white;
+  box-shadow:0 24px 55px rgba(5,38,46,.14);
+}
+
+.process{
+  margin-top:8px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+.process-card{
+  position:relative;
+  min-height:246px;
+  padding:30px;
+  border-radius:22px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  overflow:hidden;
+}
+.process-card:after{
+  content:"";
+  position:absolute;
+  width:105px;height:105px;
+  border:1px solid rgba(15,70,86,.11);
+  border-radius:50%;
+  right:-40px;bottom:-38px;
+}
+.process-card h3{
+  margin:0 0 12px;
+  color:var(--teal);
+  font-size:21px;
+}
+.process-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.72;
+}
+
+.statement{
+  background:var(--teal-soft);
+  border-top:1px solid rgba(15,70,86,.08);
+  border-bottom:1px solid rgba(15,70,86,.08);
+  padding:64px 0;
+}
+.statement p{
+  margin:0;
+  max-width:980px;
+  font-family:Manrope,sans-serif;
+  font-size:clamp(26px,3vw,39px);
+  line-height:1.22;
+  letter-spacing:-.025em;
+  color:var(--teal-dark);
+}
+
+.contact{
+  background:var(--teal-dark);
+  color:white;
+  padding:78px 0 72px;
+}
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:58px;
+  align-items:start;
+}
+.contact h2{
+  margin:0;
+  max-width:660px;
+  font-family:Manrope,sans-serif;
+  font-size:clamp(28px,3.2vw,40px);
+  line-height:1.14;
+  letter-spacing:-.028em;
+}
+.contact p{
+  margin:0 0 22px;
+  max-width:490px;
+  color:rgba(255,255,255,.72);
+  font-size:16px;
+  line-height:1.75;
+}
+.contact-link{
+  display:inline-block;
+  color:white;
+  font-weight:800;
+  border-bottom:1px solid rgba(255,255,255,.5);
+  padding-bottom:5px;
+}
+
+footer{
+  background:#071f26;
+  color:rgba(255,255,255,.68);
+  padding:52px 0 26px;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.15fr .72fr .85fr;
+  gap:54px;
+}
+.footer-logo img{
+  width:210px;
+  filter:brightness(0) invert(1);
+  opacity:.95;
+  margin-bottom:18px;
+}
+.footer-logo p{
+  margin:0;
+  max-width:390px;
+  font-size:14px;
+  line-height:1.7;
+}
+.footer-col strong{
+  display:block;
+  color:white;
+  margin-bottom:14px;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+.footer-col a,.footer-col span{
+  display:block;
+  margin:0 0 9px;
+  font-size:14px;
+}
+.footer-legal{
+  margin-top:34px;
+  padding-top:22px;
+  border-top:1px solid rgba(255,255,255,.09);
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  font-size:12px;
+}
+
+@media(max-width:900px){
+  .nav-links{display:none}
+  .product-layout,.contact-grid,.footer-grid{grid-template-columns:1fr}
+  .principle{grid-template-columns:1fr}
+  .process{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .container{width:min(100% - 28px,1180px)}
+  .nav{height:68px}
+  .logo img{width:176px}
+  .hero{padding:64px 0 56px}
+  .hero h1{font-size:42px}
+  .section{padding:66px 0}
+  .product-layout{gap:28px}
+  .product-visual{padding:22px 22px 0}
+  .statement{padding:48px 0}
+  .contact{padding:62px 0 56px}
+}
+</style>
 </head>
 <body>
-  <main>
-    <section class="card">
-      <img class="logo" src="assets/noria-labs-logo.png" alt="Noria Labs">
-      <h1>Herramientas digitales para trabajar con más claridad.</h1>
-      <p>Estamos preparando el sitio oficial de NORIA LABS. Mientras tanto, ya puedes conocer nuestro primer producto: Presupuesto Rápido PRO.</p>
-      <a href="presupuesto-pro/">Conocer Presupuesto Rápido PRO</a>
-      <small>© 2026 NORIA LABS</small>
-    </section>
-  </main>
+
+<header class="topbar">
+  <div class="container nav">
+    <a class="logo" href="#inicio">
+      <img src="assets/noria-labs-logo.png" alt="NORIA LABS">
+    </a>
+
+    <nav class="nav-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#que-hacemos">Qué hacemos</a>
+      <a href="#productos">Productos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="hero-copy">
+        <h1>Soluciones digitales creadas para resolver necesidades concretas de trabajo.</h1>
+        <p>
+          Diseñamos herramientas que simplifican procesos, organizan información y permiten tomar decisiones con mayor claridad.
+        </p>
+        <a class="hero-link" href="#productos">Conocer nuestros productos <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="que-hacemos">
+    <div class="container">
+      <div class="section-head">
+        <h2>Transformamos necesidades operativas en herramientas digitales funcionales.</h2>
+        <p class="section-intro">
+          Analizamos procesos que pueden mejorarse mediante una estructura más clara, menos pasos innecesarios y una mejor organización de la información.
+        </p>
+      </div>
+
+      <div class="principles">
+        <div class="principle">
+          <h3>Comprender</h3>
+          <p>Partimos de la necesidad real, su contexto de uso y los puntos donde actualmente se pierde tiempo o control.</p>
+        </div>
+        <div class="principle">
+          <h3>Simplificar</h3>
+          <p>Organizamos el proceso y reducimos complejidad sin eliminar la información necesaria para trabajar correctamente.</p>
+        </div>
+        <div class="principle">
+          <h3>Resolver</h3>
+          <p>Convertimos esa estructura en una herramienta digital práctica, comprensible y preparada para su uso cotidiano.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="productos">
+    <div class="container">
+      <div class="section-head">
+        <h2>Herramientas diseñadas para problemas específicos.</h2>
+        <p class="section-intro">
+          Cada producto de NORIA LABS responde a una necesidad concreta y se desarrolla con una prioridad clara: utilidad real.
+        </p>
+      </div>
+
+      <div class="product-layout">
+        <div class="product-copy">
+          <h3>Presupuesto Rápido PRO</h3>
+          <p>
+            Herramienta para contratistas, técnicos y trabajadores independientes que permite calcular costos reales, definir la ganancia deseada y preparar cotizaciones profesionales.
+          </p>
+          <a class="product-link" href="https://norialabs.site/presupuesto-pro/" target="_blank">
+            Conocer el producto <span>→</span>
+          </a>
+        </div>
+
+        <div class="product-visual">
+          <div class="screen">
+            <img src="presupuesto-pro/assets/presupuesto-pro-hero.png" alt="Presupuesto Rápido PRO">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>Un proceso claro desde la necesidad hasta la solución.</h2>
+        <p class="section-intro">
+          El desarrollo parte del problema que debe resolverse, no de una tecnología determinada. Esto permite mantener el foco en el resultado y en la experiencia de uso.
+        </p>
+      </div>
+
+      <div class="process">
+        <article class="process-card">
+          <h3>Análisis</h3>
+          <p>Identificamos la necesidad, el flujo actual y los puntos de fricción que deben resolverse.</p>
+        </article>
+        <article class="process-card">
+          <h3>Diseño</h3>
+          <p>Definimos una estructura clara, organizamos la información y simplificamos el recorrido de uso.</p>
+        </article>
+        <article class="process-card">
+          <h3>Desarrollo</h3>
+          <p>Construimos una herramienta funcional, coherente y preparada para integrarse al trabajo real.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="statement">
+    <div class="container">
+      <p>Diseñamos herramientas digitales donde antes existían procesos dispersos, repetitivos o difíciles de controlar.</p>
+    </div>
+  </section>
+
+  <section class="contact" id="contacto">
+    <div class="container contact-grid">
+      <div>
+        <h2>Información, soporte y consultas relacionadas con nuestros productos.</h2>
+      </div>
+      <div>
+        <p>
+          Puedes comunicarte con NORIA LABS para consultas generales, soporte o información relacionada con nuestras soluciones digitales.
+        </p>
+        <a class="contact-link" href="mailto:soporte@norialabs.site">soporte@norialabs.site</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-logo">
+        <img src="assets/noria-labs-logo.png" alt="NORIA LABS">
+        <p>Soluciones digitales orientadas a simplificar procesos y mejorar la toma de decisiones.</p>
+      </div>
+
+      <div class="footer-col">
+        <strong>Navegación</strong>
+        <a href="#inicio">Inicio</a>
+        <a href="#que-hacemos">Qué hacemos</a>
+        <a href="#productos">Productos</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+
+      <div class="footer-col">
+        <strong>Información</strong>
+        <a href="mailto:soporte@norialabs.site">soporte@norialabs.site</a>
+        <a href="https://presupuestopro.norialabs.site" target="_blank">Acceso de clientes</a>
+        <span>Política de privacidad</span>
+        <span>Términos y condiciones</span>
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <span>© 2026 NORIA LABS. Todos los derechos reservados.</span>
+      <span>norialabs.site</span>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
