@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prueba 7 días | Presupuesto Rápido PRO</title>
+  <meta name="description" content="Acceso privado de prueba a Presupuesto Rápido PRO por 7 días.">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0f4656">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--teal:#0f4656;--teal-dark:#082f3a;--orange:#eb6b25;--orange-dark:#d75916;--ivory:#f5f2ec;--paper:#fffdf9;--ink:#102027;--muted:#66767c;--line:#d8dedf}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:linear-gradient(135deg,var(--teal-dark),var(--teal));display:grid;place-items:center;padding:28px}
+    .card{width:min(560px,100%);background:var(--paper);border-radius:28px;padding:38px;box-shadow:0 28px 80px rgba(0,0,0,.28)}
+    .brand{display:flex;align-items:center;justify-content:center;margin-bottom:26px}.brand img{width:220px;max-width:76%;height:auto}
+    .eyebrow{display:block;text-align:center;font-size:12px;font-weight:800;letter-spacing:.13em;color:var(--orange);margin-bottom:10px}
+    h1{font-family:Manrope,sans-serif;font-size:clamp(30px,6vw,42px);line-height:1.08;letter-spacing:-.035em;text-align:center;margin:0 0 16px}
+    .lead{color:var(--muted);font-size:17px;line-height:1.65;text-align:center;margin:0 auto 26px;max-width:470px}
+    .benefits{display:grid;gap:9px;margin:0 0 28px;padding:0;list-style:none;color:#40545b;font-size:14px}.benefits li:before{content:"✓";color:var(--orange);font-weight:900;margin-right:9px}
+    label{display:block;font-weight:700;font-size:14px;margin-bottom:8px}
+    input{width:100%;height:54px;border:1px solid var(--line);border-radius:13px;background:white;padding:0 15px;font:inherit;color:var(--ink);outline:none}input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(15,70,86,.1)}
+    button{width:100%;min-height:54px;border:0;border-radius:13px;background:var(--orange);color:white;font:800 16px Inter,sans-serif;margin-top:12px;cursor:pointer;box-shadow:0 12px 28px rgba(235,107,37,.22)}button:hover{background:var(--orange-dark)}button:disabled{opacity:.65;cursor:wait}
+    .status{display:none;margin-top:18px;padding:14px 15px;border-radius:12px;font-size:14px;line-height:1.5}.status.show{display:block}.status.ok{background:#e7f4ec;color:#1d6538}.status.err{background:#fcebea;color:#8b2f28}
+    .micro{color:var(--muted);font-size:12px;line-height:1.5;text-align:center;margin:16px 0 0}.login{display:block;text-align:center;margin-top:22px;color:var(--teal);font-weight:700;font-size:14px}
+    @media(max-width:560px){body{padding:18px}.card{padding:28px 22px;border-radius:22px}.brand img{width:190px}.lead{font-size:16px}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand"><img src="../assets/noria-labs-logo.png" alt="NORIA LABS"></div>
+    <span class="eyebrow">ACCESO PRIVADO DE PRUEBA</span>
+    <h1>Prueba Presupuesto Rápido PRO durante 7 días</h1>
+    <p class="lead">Ingresa tu correo y recibirás un enlace para crear tu contraseña y comenzar a usar la aplicación.</p>
+
+    <ul class="benefits">
+      <li>Acceso completo durante 7 días</li>
+      <li>Hasta 2 dispositivos</li>
+      <li>Cotizaciones y PDF profesional</li>
+      <li>No necesitas ingresar datos de pago</li>
+    </ul>
+
+    <form id="trialForm" novalidate>
+      <label for="email">Correo electrónico</label>
+      <input id="email" name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required>
+      <button id="submitBtn" type="submit">Comenzar prueba</button>
+    </form>
+
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+    <p class="micro">La prueba se activa una sola vez por correo. Al finalizar, necesitarás una suscripción para continuar.</p>
+    <a class="login" href="https://presupuestopro.norialabs.site" rel="noopener">Ya tengo una cuenta</a>
+  </main>
+
+  <script>
+    const ENDPOINT='https://hezyyaauuncebyphbzkt.supabase.co/functions/v1/trial-signup';
+    const form=document.getElementById('trialForm');
+    const email=document.getElementById('email');
+    const button=document.getElementById('submitBtn');
+    const statusBox=document.getElementById('status');
+
+    function showStatus(message,type){
+      statusBox.textContent=message;
+      statusBox.className='status show '+type;
+    }
+
+    form.addEventListener('submit',async(e)=>{
+      e.preventDefault();
+      const value=email.value.trim().toLowerCase();
+      if(!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){
+        showStatus('Escribe un correo electrónico válido.','err');
+        return;
+      }
+
+      button.disabled=true;
+      button.textContent='Creando acceso…';
+      statusBox.className='status';
+
+      try{
+        const response=await fetch(ENDPOINT,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({email:value})
+        });
+
+        let data={};
+        try{data=await response.json()}catch{}
+
+        if(!response.ok){
+          throw new Error(data.message||'No pudimos crear el acceso de prueba. Inténtalo nuevamente.');
+        }
+
+        form.reset();
+        showStatus(data.message||'Listo. Revisa tu correo y pulsa “Activar mi acceso” para crear tu contraseña.','ok');
+      }catch(err){
+        showStatus(err.message||'No pudimos crear el acceso de prueba. Inténtalo nuevamente.','err');
+      }finally{
+        button.disabled=false;
+        button.textContent='Comenzar prueba';
+      }
+    });
+  </script>
+</body>
+</html>
